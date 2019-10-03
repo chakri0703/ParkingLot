@@ -19,6 +19,9 @@ public class ParkingLot {
             throw new IllegalArgumentException("parking Lot is Full");
         }
 
+        if(vehicles.contains(object)){
+            throw new IllegalArgumentException("vehicle already parked");
+        }
         return vehicles.add(object);
     }
 

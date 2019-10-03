@@ -19,7 +19,8 @@ class ParkingLotTest {
 
         parkingLot.park(new Object());
 
-       assertThrows(IllegalArgumentException.class,()->parkingLot.park(new Object()));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> parkingLot.park(new Object()));
+        assertEquals(exception.getMessage(), "parking Lot is Full");
     }
 
     @Test
@@ -30,7 +31,8 @@ class ParkingLotTest {
 
         parkingLot.park(object);
 
-        assertFalse(parkingLot.park(object));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> parkingLot.park(object));
+        assertEquals(exception.getMessage(), "vehicle already parked");
     }
 
 
