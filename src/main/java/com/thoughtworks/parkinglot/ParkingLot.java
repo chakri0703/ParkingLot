@@ -35,4 +35,8 @@ public class ParkingLot {
     protected boolean isParkingLotFull() {
         return vehicles.size() >= capacity;
     }
+
+    public boolean unPark(Object vehicle) {
+        return  false;
+    }
 }
