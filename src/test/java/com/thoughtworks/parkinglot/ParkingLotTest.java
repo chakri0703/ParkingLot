@@ -19,7 +19,7 @@ class ParkingLotTest {
 
         parkingLot.park(new Object());
 
-        assertFalse(parkingLot.park(new Object()));
+       assertThrows(IllegalArgumentException.class,()->parkingLot.park(new Object()));
     }
 
     @Test
@@ -32,4 +32,6 @@ class ParkingLotTest {
 
         assertFalse(parkingLot.park(object));
     }
+
+
 }

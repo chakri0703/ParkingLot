@@ -16,7 +16,7 @@ public class ParkingLot {
 
     public boolean park(Object object) {
         if (isParkingLotFull()) {
-            return false;
+            throw new IllegalArgumentException("parking Lot is Full");
         }
 
         return vehicles.add(object);
