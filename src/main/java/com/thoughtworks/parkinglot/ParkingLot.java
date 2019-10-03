@@ -1,20 +1,28 @@
 package com.thoughtworks.parkinglot;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class ParkingLot {
 
     private int capacity;
-    private int count = 0;
 
+    Set<Object> vehicles = new HashSet<>();
 
     public ParkingLot(int capacity) {
         this.capacity = capacity;
     }
 
+
     public boolean park(Object object) {
-        if (count >= capacity) {
+        if (isParkingLotFull()) {
             return false;
         }
-        count++;
-        return true;
+
+        return vehicles.add(object);
+    }
+
+    private boolean isParkingLotFull() {
+        return vehicles.size() >= capacity;
     }
 }

@@ -15,11 +15,21 @@ class ParkingLotTest {
 
     @Test
     void givenParkingLotIsFull_WhenPark_ThenMustNotPark() {
+        ParkingLot parkingLot = new ParkingLot(1);
+
+        parkingLot.park(new Object());
+
+        assertFalse(parkingLot.park(new Object()));
+    }
+
+    @Test
+    void givenParkingLotWithSameCars_WhenPark_ThenMustNotPark() {
         ParkingLot parkingLot = new ParkingLot(2);
 
-        parkingLot.park(new Object());
-        parkingLot.park(new Object());
+        Object object = new Object();
 
-        assertEquals(false, parkingLot.park(new Object()));
+        parkingLot.park(object);
+
+        assertFalse(parkingLot.park(object));
     }
 }
