@@ -1,5 +1,8 @@
 package com.thoughtworks.parkinglot;
 
+import com.thoughtworks.parkinglot.exception.ParkingLotFullException;
+import com.thoughtworks.parkinglot.exception.VehicleAlreadyParkedException;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,18 +17,22 @@ public class ParkingLot {
     }
 
 
-    public boolean park(Object object) {
+    public void park(Object object) throws ParkingLotFullException, VehicleAlreadyParkedException {
         if (isParkingLotFull()) {
-            throw new IllegalArgumentException("parking Lot is Full");
+            throw new ParkingLotFullException("parking Lot is Full");
         }
 
-        if(vehicles.contains(object)){
-            throw new IllegalArgumentException("vehicle already parked");
+        if (isParked(object)) {
+            throw new VehicleAlreadyParkedException("vehicle already parked");
         }
-        return vehicles.add(object);
+        vehicles.add(object);
     }
 
-    private boolean isParkingLotFull() {
+    private boolean isParked(Object object) {
+        return vehicles.contains(object);
+    }
+
+    protected boolean isParkingLotFull() {
         return vehicles.size() >= capacity;
     }
 }
