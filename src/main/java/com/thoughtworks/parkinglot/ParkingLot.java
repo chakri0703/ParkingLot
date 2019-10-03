@@ -37,6 +37,9 @@ public class ParkingLot {
     }
 
     public boolean unPark(Object vehicle) {
-        return  false;
+        if (vehicles.remove(vehicle)) {
+            return true;
+        }
+        return false;
     }
 }

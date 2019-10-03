@@ -41,11 +41,20 @@ class ParkingLotTest {
     }
 
     @Test
-    void givenParkedOneCar_WhenUnPark_ThenTheyShouldBeAbleToUnPark(){
+    void givenNoCarParked_WhenUnPark_ThenTheyShouldBeAbleToUnPark(){
         ParkingLot parkingLot=new ParkingLot(1);
 
         Object vehicle=new Object();
         assertEquals(false,parkingLot.unPark(vehicle));
+    }
+
+    @Test
+    void givenOneCarParked_WhenUnPark_ThenTheyShouldBeAbleToUnPark() throws VehicleAlreadyParkedException, ParkingLotFullException {
+        ParkingLot parkingLot =new ParkingLot(1);
+        Object vehicle=new Object();
+        parkingLot.park(vehicle);
+
+        assertEquals(true,parkingLot.unPark(vehicle));
     }
 
 
