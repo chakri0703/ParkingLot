@@ -1,15 +1,25 @@
 package com.thoughtworks.parkinglot;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class ParkingLotTest
-{
+import static org.junit.jupiter.api.Assertions.*;
+
+class ParkingLotTest {
     @Test
-    void givenParkingLot_WhenIsAvailable_ThenMustPark(){
-        ParkingLot parkingLot=new ParkingLot(10);
+    void givenParkingLot_WhenPark_ThenMustPark() {
+        ParkingLot parkingLot = new ParkingLot(1);
 
-        Assertions.assertEquals(true,parkingLot.park(new Object()));
+        assertTrue(parkingLot.park(new Object()));
 
+    }
+
+    @Test
+    void givenParkingLotIsFull_WhenPark_ThenMustNotPark() {
+        ParkingLot parkingLot = new ParkingLot(2);
+
+        parkingLot.park(new Object());
+        parkingLot.park(new Object());
+
+        assertEquals(false, parkingLot.park(new Object()));
     }
 }
