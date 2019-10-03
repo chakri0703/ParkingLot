@@ -9,7 +9,7 @@ public class ParkingLotTest
     void givenParkingLot_WhenIsAvailable_ThenMustPark(){
         ParkingLot parkingLot=new ParkingLot(10);
 
-        Assertions.assertEquals(true,parkingLot.isAvailable());
+        Assertions.assertEquals(true,parkingLot.park(new Object()));
 
     }
 }
