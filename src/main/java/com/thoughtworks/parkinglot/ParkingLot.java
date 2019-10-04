@@ -13,7 +13,6 @@ public class ParkingLot {
     private Owner owner;
     private int capacity;
     Set<Object> vehicles = new HashSet<>();
-    private int count = 0;
 
     public ParkingLot(int capacity) {
         this.capacity = capacity;
@@ -37,7 +36,6 @@ public class ParkingLot {
         vehicles.add(object);
         if (vehicles.size() == capacity) {
             owner.inform("parking lot is full");
-            count += 1;
         }
     }
 
@@ -58,7 +56,4 @@ public class ParkingLot {
         return vehicle;
     }
 
-    public boolean messageSent() {
-        return count > 0;
-    }
 }

@@ -7,15 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DummyOwner extends Owner{
-    public String message;
-    @Override
-    public void inform(String message) {
-        this.message=message;
-    }
-}
-
-class ParkingLotTest extends Owner{
+class ParkingLotTest {
 
     @Test
     void givenParkingLot_WhenPark_ThenMustPark() throws Exception {
@@ -107,9 +99,30 @@ class ParkingLotTest extends Owner{
 
     @Test
     void givenParkingLotFull_WhenPark_ThenOwnerGetsMessage() throws VehicleAlreadyParkedException, ParkingLotFullException {
-        DummyOwner owner = new DummyOwner();
+        MockOwner owner = new MockOwner();
         ParkingLot parkingLot = new ParkingLot(1, owner);
         parkingLot.park(new Object());
-        assertEquals("parking lot is full",owner.message);
+        assertTrue(owner.isReceived);
+    }
+
+    @Test
+    void givenParkingLotFull_WhenPark_ThenOwnerGetsMessageOnce() throws VehicleAlreadyParkedException, ParkingLotFullException {
+        MockOwner owner = new MockOwner();
+
+        ParkingLot parkingLot = new ParkingLot(1, owner);
+        parkingLot.park(new Object());
+        assertEquals(1, owner.count);
+    }
+
+    @Test
+    void givenPakingLotFull_WhenParkAndUnPark_ThenOwerGetsMessageTwice() throws VehicleAlreadyParkedException, ParkingLotFullException, NotParkedException {
+        MockOwner owner = new MockOwner();
+
+        ParkingLot parkingLot = new ParkingLot(1, owner);
+        Object one = new Object();
+        parkingLot.park(one);
+        parkingLot.unPark(one);
+        parkingLot.park(one);
+        assertEquals(2, owner.count);
     }
 }
