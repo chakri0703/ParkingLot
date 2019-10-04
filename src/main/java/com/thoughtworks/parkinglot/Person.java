@@ -5,10 +5,13 @@ public class Person {
     private String message;
 
 
-    public void sendMessage(String message){
+    public void inform(String message){
         this.message=message;
     }
-    public String getMessage() {
-        return message;
+    public boolean gotInformed() {
+     if (message!=null){
+         return true;
+     }
+     return false;
     }
 }

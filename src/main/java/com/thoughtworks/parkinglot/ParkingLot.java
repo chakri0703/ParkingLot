@@ -4,9 +4,7 @@ import com.thoughtworks.parkinglot.exception.NotParkedException;
 import com.thoughtworks.parkinglot.exception.ParkingLotFullException;
 import com.thoughtworks.parkinglot.exception.VehicleAlreadyParkedException;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class ParkingLot implements Observer {
@@ -37,7 +35,7 @@ public class ParkingLot implements Observer {
         }
         vehicles.add(object);
         if(vehicles.size()==capacity){
-            owner.sendMessage("parking lot is full");
+            owner.inform("parking lot is full");
         }
     }
 

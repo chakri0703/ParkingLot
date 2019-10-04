@@ -4,7 +4,6 @@ import com.thoughtworks.parkinglot.exception.NotParkedException;
 import com.thoughtworks.parkinglot.exception.ParkingLotFullException;
 import com.thoughtworks.parkinglot.exception.VehicleAlreadyParkedException;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.configuration.injection.filter.OngoingInjecter;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -101,6 +100,18 @@ class ParkingLotTest {
         Person owner = new Person();
         ParkingLot parkingLot = new ParkingLot(1, owner);
         parkingLot.park(new Object());
-        assertEquals("parking lot is full", owner.getMessage());
+        assertTrue(owner.gotInformed());
+    }
+
+    @Test
+    void givenParkingLotNotFull_WhenPark_ThenOwnerGotNotInformed() throws VehicleAlreadyParkedException, ParkingLotFullException {
+        Person ower = new Person();
+        ParkingLot parkingLot = new ParkingLot(2, ower);
+        Object vehicleOne = new Object();
+
+        parkingLot.park(vehicleOne);
+
+        assertFalse(ower.gotInformed());
+
     }
 }
