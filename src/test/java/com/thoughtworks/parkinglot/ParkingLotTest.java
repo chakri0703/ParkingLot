@@ -11,7 +11,7 @@ class ParkingLotTest {
 
     @Test
     void givenParkingLot_WhenPark_ThenMustPark() throws Exception {
-        Owner owner = new Owner();
+        MockOwner owner = new MockOwner();
         ParkingLot parkingLot = new ParkingLot(1, owner);
 
         Object vehicle = new Object();
@@ -23,7 +23,7 @@ class ParkingLotTest {
 
     @Test
     void givenParkingLotIsFull_WhenPark_ThenMustNotPark() throws Exception {
-        Owner owner = new Owner();
+        MockOwner owner = new MockOwner();
         ParkingLot parkingLot = new ParkingLot(1, owner);
 
         parkingLot.park(new Object());
@@ -35,7 +35,7 @@ class ParkingLotTest {
 
     @Test
     void givenParkingLotWithSameCars_WhenPark_ThenMustNotPark() throws Exception {
-        Owner owner = new Owner();
+        MockOwner owner = new MockOwner();
         ParkingLot parkingLot = new ParkingLot(2, owner);
 
         Object object = new Object();
@@ -48,7 +48,7 @@ class ParkingLotTest {
 
     @Test
     void givenNoCarParked_WhenUnPark_ThenTheyShouldNotBeAbleToUnPark() throws NotParkedException {
-        Owner owner = new Owner();
+        MockOwner owner = new MockOwner();
         ParkingLot parkingLot = new ParkingLot(1, owner);
 
         Object vehicle = new Object();
@@ -60,7 +60,7 @@ class ParkingLotTest {
 
     @Test
     void givenOneCarParked_WhenUnPark_ThenTheyShouldBeAbleToUnPark() throws Exception {
-        Owner owner = new Owner();
+        MockOwner owner = new MockOwner();
         ParkingLot parkingLot = new ParkingLot(1, owner);
         Object vehicle = new Object();
         parkingLot.park(vehicle);
@@ -70,7 +70,7 @@ class ParkingLotTest {
 
     @Test
     void givenOneCarParkAndUnParkAnotherCar_WhenUnPark_ThenTheyShouldNotBeAbleToUnPark() throws Exception {
-        Owner owner = new Owner();
+        MockOwner owner = new MockOwner();
         ParkingLot parkingLot = new ParkingLot(1, owner);
         Object vehicleOne = new Object();
         Object vehicleTwo = new Object();
@@ -84,7 +84,7 @@ class ParkingLotTest {
 
     @Test
     void givenParkedTwoVehicle_WhenUnPark_ThenTheyShouldBeUnPark() throws Exception {
-        Owner owner = new Owner();
+        MockOwner owner = new MockOwner();
         ParkingLot parkingLot = new ParkingLot(2, owner);
         Object vehicleOne = new Object();
         Object vehicleTwo = new Object();

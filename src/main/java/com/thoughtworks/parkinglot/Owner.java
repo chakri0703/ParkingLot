@@ -1,13 +1,7 @@
 package com.thoughtworks.parkinglot;
 
-public class Owner {
+public interface Owner {
+    void informParkingLotFull();
 
-
-    public void informParkingLotFull() {
-
-    }
-
-    public void informFreeSpaceAvailable() {
-
-    }
+    void informFreeSpaceAvailable();
 }

@@ -4,6 +4,7 @@ import com.thoughtworks.parkinglot.exception.NotParkedException;
 import com.thoughtworks.parkinglot.exception.ParkingLotFullException;
 import com.thoughtworks.parkinglot.exception.VehicleAlreadyParkedException;
 
+import java.io.OutputStreamWriter;
 import java.util.HashSet;
 import java.util.Set;
 
