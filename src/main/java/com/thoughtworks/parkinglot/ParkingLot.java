@@ -7,21 +7,22 @@ import com.thoughtworks.parkinglot.exception.VehicleAlreadyParkedException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ParkingLot implements Observer {
+public class ParkingLot {
 
 
-    private Person owner;
+    private Owner owner;
     private int capacity;
     Set<Object> vehicles = new HashSet<>();
+    private int count = 0;
 
     public ParkingLot(int capacity) {
         this.capacity = capacity;
     }
 
-    public ParkingLot(int capacity, Person owner) {
+    public ParkingLot(int capacity, Owner owner) {
 
         this.capacity = capacity;
-        this.owner=owner;
+        this.owner = owner;
     }
 
 
@@ -34,8 +35,9 @@ public class ParkingLot implements Observer {
             throw new VehicleAlreadyParkedException("vehicle already parked");
         }
         vehicles.add(object);
-        if(vehicles.size()==capacity){
+        if (vehicles.size() == capacity) {
             owner.inform("parking lot is full");
+            count += 1;
         }
     }
 
@@ -48,7 +50,7 @@ public class ParkingLot implements Observer {
     }
 
     public Object unPark(Object vehicle) throws NotParkedException {
-        if (!isParked(vehicle)||vehicles.isEmpty()) {
+        if (!isParked(vehicle) || vehicles.isEmpty()) {
             throw new NotParkedException("Vehicle Not parked");
 
         }
@@ -56,8 +58,7 @@ public class ParkingLot implements Observer {
         return vehicle;
     }
 
-    @Override
-    public void register(Object object) {
-
+    public boolean messageSent() {
+        return count > 0;
     }
 }

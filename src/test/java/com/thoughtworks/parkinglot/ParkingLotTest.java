@@ -7,10 +7,19 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ParkingLotTest {
+class DummyOwner extends Owner{
+    public String message;
+    @Override
+    public void inform(String message) {
+        this.message=message;
+    }
+}
+
+class ParkingLotTest extends Owner{
+
     @Test
     void givenParkingLot_WhenPark_ThenMustPark() throws Exception {
-        Person owner = new Person();
+        Owner owner = new Owner();
         ParkingLot parkingLot = new ParkingLot(1, owner);
 
         Object vehicle = new Object();
@@ -22,18 +31,19 @@ class ParkingLotTest {
 
     @Test
     void givenParkingLotIsFull_WhenPark_ThenMustNotPark() throws Exception {
-        Person owner = new Person();
+        Owner owner = new Owner();
         ParkingLot parkingLot = new ParkingLot(1, owner);
 
         parkingLot.park(new Object());
 
         Throwable exception = assertThrows(ParkingLotFullException.class, () -> parkingLot.park(new Object()));
         assertEquals(exception.getMessage(), "parking Lot is Full");
+
     }
 
     @Test
     void givenParkingLotWithSameCars_WhenPark_ThenMustNotPark() throws Exception {
-        Person owner = new Person();
+        Owner owner = new Owner();
         ParkingLot parkingLot = new ParkingLot(2, owner);
 
         Object object = new Object();
@@ -46,7 +56,7 @@ class ParkingLotTest {
 
     @Test
     void givenNoCarParked_WhenUnPark_ThenTheyShouldNotBeAbleToUnPark() throws NotParkedException {
-        Person owner = new Person();
+        Owner owner = new Owner();
         ParkingLot parkingLot = new ParkingLot(1, owner);
 
         Object vehicle = new Object();
@@ -58,7 +68,7 @@ class ParkingLotTest {
 
     @Test
     void givenOneCarParked_WhenUnPark_ThenTheyShouldBeAbleToUnPark() throws Exception {
-        Person owner = new Person();
+        Owner owner = new Owner();
         ParkingLot parkingLot = new ParkingLot(1, owner);
         Object vehicle = new Object();
         parkingLot.park(vehicle);
@@ -68,7 +78,7 @@ class ParkingLotTest {
 
     @Test
     void givenOneCarParkAndUnParkAnotherCar_WhenUnPark_ThenTheyShouldNotBeAbleToUnPark() throws Exception {
-        Person owner = new Person();
+        Owner owner = new Owner();
         ParkingLot parkingLot = new ParkingLot(1, owner);
         Object vehicleOne = new Object();
         Object vehicleTwo = new Object();
@@ -82,7 +92,7 @@ class ParkingLotTest {
 
     @Test
     void givenParkedTwoVehicle_WhenUnPark_ThenTheyShouldBeUnPark() throws Exception {
-        Person owner = new Person();
+        Owner owner = new Owner();
         ParkingLot parkingLot = new ParkingLot(2, owner);
         Object vehicleOne = new Object();
         Object vehicleTwo = new Object();
@@ -97,21 +107,9 @@ class ParkingLotTest {
 
     @Test
     void givenParkingLotFull_WhenPark_ThenOwnerGetsMessage() throws VehicleAlreadyParkedException, ParkingLotFullException {
-        Person owner = new Person();
+        DummyOwner owner = new DummyOwner();
         ParkingLot parkingLot = new ParkingLot(1, owner);
         parkingLot.park(new Object());
-        assertTrue(owner.gotInformed());
-    }
-
-    @Test
-    void givenParkingLotNotFull_WhenPark_ThenOwnerGotNotInformed() throws VehicleAlreadyParkedException, ParkingLotFullException {
-        Person ower = new Person();
-        ParkingLot parkingLot = new ParkingLot(2, ower);
-        Object vehicleOne = new Object();
-
-        parkingLot.park(vehicleOne);
-
-        assertFalse(ower.gotInformed());
-
+        assertEquals("parking lot is full",owner.message);
     }
 }
