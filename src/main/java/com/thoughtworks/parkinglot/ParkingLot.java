@@ -1,5 +1,6 @@
 package com.thoughtworks.parkinglot;
 
+import com.thoughtworks.parkinglot.exception.NotParkedException;
 import com.thoughtworks.parkinglot.exception.ParkingLotFullException;
 import com.thoughtworks.parkinglot.exception.VehicleAlreadyParkedException;
 
@@ -36,10 +37,12 @@ public class ParkingLot {
         return vehicles.size() >= capacity;
     }
 
-    public boolean unPark(Object vehicle) {
-        if (vehicles.remove(vehicle)) {
-            return true;
+    public Object unPark(Object vehicle) throws NotParkedException {
+        if (!isParked(vehicle)||vehicles.isEmpty()) {
+            throw new NotParkedException("Vehicle Not parked");
+
         }
-        return false;
+        vehicles.remove(vehicle);
+        return vehicle;
     }
 }
