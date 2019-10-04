@@ -4,13 +4,15 @@ import com.thoughtworks.parkinglot.exception.NotParkedException;
 import com.thoughtworks.parkinglot.exception.ParkingLotFullException;
 import com.thoughtworks.parkinglot.exception.VehicleAlreadyParkedException;
 import org.junit.jupiter.api.Test;
+import org.mockito.internal.configuration.injection.filter.OngoingInjecter;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParkingLotTest {
     @Test
-    void givenParkingLot_WhenPark_ThenMustPark() throws ParkingLotFullException, VehicleAlreadyParkedException {
-        ParkingLot parkingLot = new ParkingLot(1);
+    void givenParkingLot_WhenPark_ThenMustPark() throws Exception {
+        Person owner = new Person();
+        ParkingLot parkingLot = new ParkingLot(1, owner);
 
         Object vehicle = new Object();
         parkingLot.park(vehicle);
@@ -20,8 +22,9 @@ class ParkingLotTest {
     }
 
     @Test
-    void givenParkingLotIsFull_WhenPark_ThenMustNotPark() throws ParkingLotFullException, VehicleAlreadyParkedException {
-        ParkingLot parkingLot = new ParkingLot(1);
+    void givenParkingLotIsFull_WhenPark_ThenMustNotPark() throws Exception {
+        Person owner = new Person();
+        ParkingLot parkingLot = new ParkingLot(1, owner);
 
         parkingLot.park(new Object());
 
@@ -30,8 +33,9 @@ class ParkingLotTest {
     }
 
     @Test
-    void givenParkingLotWithSameCars_WhenPark_ThenMustNotPark() throws ParkingLotFullException, VehicleAlreadyParkedException {
-        ParkingLot parkingLot = new ParkingLot(2);
+    void givenParkingLotWithSameCars_WhenPark_ThenMustNotPark() throws Exception {
+        Person owner = new Person();
+        ParkingLot parkingLot = new ParkingLot(2, owner);
 
         Object object = new Object();
 
@@ -43,18 +47,20 @@ class ParkingLotTest {
 
     @Test
     void givenNoCarParked_WhenUnPark_ThenTheyShouldNotBeAbleToUnPark() throws NotParkedException {
-        ParkingLot parkingLot = new ParkingLot(1);
+        Person owner = new Person();
+        ParkingLot parkingLot = new ParkingLot(1, owner);
 
         Object vehicle = new Object();
 
-        assertThrows(NotParkedException.class,()->{
+        assertThrows(NotParkedException.class, () -> {
             parkingLot.unPark(vehicle);
         });
     }
 
     @Test
-    void givenOneCarParked_WhenUnPark_ThenTheyShouldBeAbleToUnPark() throws VehicleAlreadyParkedException, ParkingLotFullException, NotParkedException {
-        ParkingLot parkingLot = new ParkingLot(1);
+    void givenOneCarParked_WhenUnPark_ThenTheyShouldBeAbleToUnPark() throws Exception {
+        Person owner = new Person();
+        ParkingLot parkingLot = new ParkingLot(1, owner);
         Object vehicle = new Object();
         parkingLot.park(vehicle);
 
@@ -62,29 +68,39 @@ class ParkingLotTest {
     }
 
     @Test
-    void givenOneCarParkAndUnParkAnotherCar_WhenUnPark_ThenTheyShouldNotAbleToUnPark() throws VehicleAlreadyParkedException, ParkingLotFullException, NotParkedException {
-        ParkingLot parkingLot = new ParkingLot(1);
+    void givenOneCarParkAndUnParkAnotherCar_WhenUnPark_ThenTheyShouldNotBeAbleToUnPark() throws Exception {
+        Person owner = new Person();
+        ParkingLot parkingLot = new ParkingLot(1, owner);
         Object vehicleOne = new Object();
         Object vehicleTwo = new Object();
 
         parkingLot.park(vehicleOne);
 
-       assertThrows(NotParkedException.class,()->{
-           parkingLot.unPark(vehicleTwo);
-       });
+        assertThrows(NotParkedException.class, () -> {
+            parkingLot.unPark(vehicleTwo);
+        });
     }
 
     @Test
     void givenParkedTwoVehicle_WhenUnPark_ThenTheyShouldBeUnPark() throws Exception {
-        ParkingLot parkingLot=new ParkingLot(2);
-        Object vehicleOne=new Object();
-        Object vehicleTwo=new Object();
+        Person owner = new Person();
+        ParkingLot parkingLot = new ParkingLot(2, owner);
+        Object vehicleOne = new Object();
+        Object vehicleTwo = new Object();
 
         parkingLot.park(vehicleOne);
         parkingLot.park(vehicleTwo);
 
-       parkingLot.unPark(vehicleOne);
-       assertEquals(vehicleTwo,parkingLot.unPark(vehicleTwo));
+        parkingLot.unPark(vehicleOne);
+        assertEquals(vehicleTwo, parkingLot.unPark(vehicleTwo));
     }
 
+
+    @Test
+    void givenParkingLotFull_WhenPark_ThenOwnerGetsMessage() throws VehicleAlreadyParkedException, ParkingLotFullException {
+        Person owner = new Person();
+        ParkingLot parkingLot = new ParkingLot(1, owner);
+        parkingLot.park(new Object());
+        assertEquals("parking lot is full", owner.getMessage());
+    }
 }
