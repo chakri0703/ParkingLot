@@ -102,7 +102,7 @@ class ParkingLotTest {
         MockOwner owner = new MockOwner();
         ParkingLot parkingLot = new ParkingLot(1, owner);
         parkingLot.park(new Object());
-        assertTrue(owner.isReceived);
+        assertEquals(1, owner.parkingFullInform);
     }
 
     @Test
@@ -111,11 +111,11 @@ class ParkingLotTest {
 
         ParkingLot parkingLot = new ParkingLot(1, owner);
         parkingLot.park(new Object());
-        assertEquals(1, owner.count);
+        assertEquals(1, owner.parkingFullInform);
     }
 
     @Test
-    void givenPakingLotFull_WhenParkAndUnPark_ThenOwerGetsMessageTwice() throws VehicleAlreadyParkedException, ParkingLotFullException, NotParkedException {
+    void givenParkingLotFull_WhenParkAndUnParkAgainPark_ThenOwerGetsMessageTwice() throws VehicleAlreadyParkedException, ParkingLotFullException, NotParkedException {
         MockOwner owner = new MockOwner();
 
         ParkingLot parkingLot = new ParkingLot(1, owner);
@@ -123,6 +123,17 @@ class ParkingLotTest {
         parkingLot.park(one);
         parkingLot.unPark(one);
         parkingLot.park(one);
-        assertEquals(2, owner.count);
+        assertEquals(2, owner.parkingFullInform);
+    }
+
+    @Test
+    void givenParkingLotFull_WhenUnPark_ThenOwnerGetsMessage() throws VehicleAlreadyParkedException, ParkingLotFullException, NotParkedException {
+        MockOwner owner = new MockOwner();
+
+        ParkingLot parkingLot = new ParkingLot(1, owner);
+        Object vehicle = new Object();
+        parkingLot.park(vehicle);
+        parkingLot.unPark(vehicle);
+        assertEquals(1, owner.freeSpaceInform);
     }
 }

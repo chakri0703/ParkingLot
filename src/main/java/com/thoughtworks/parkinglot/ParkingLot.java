@@ -35,7 +35,7 @@ public class ParkingLot {
         }
         vehicles.add(object);
         if (vehicles.size() == capacity) {
-            owner.inform("parking lot is full");
+            owner.informParkingLotFull();
         }
     }
 
@@ -51,6 +51,10 @@ public class ParkingLot {
         if (!isParked(vehicle) || vehicles.isEmpty()) {
             throw new NotParkedException("Vehicle Not parked");
 
+        }
+        if (vehicles.size() == capacity) {
+            vehicles.remove(vehicle);
+            owner.informFreeSpaceAvailable();
         }
         vehicles.remove(vehicle);
         return vehicle;
