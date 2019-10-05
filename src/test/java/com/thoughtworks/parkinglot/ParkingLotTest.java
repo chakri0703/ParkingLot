@@ -4,6 +4,10 @@ import com.thoughtworks.parkinglot.exception.NotParkedException;
 import com.thoughtworks.parkinglot.exception.ParkingLotFullException;
 import com.thoughtworks.parkinglot.exception.VehicleAlreadyParkedException;
 import org.junit.jupiter.api.Test;
+import org.mockito.internal.configuration.injection.filter.OngoingInjecter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,7 +16,9 @@ class ParkingLotTest {
     @Test
     void givenParkingLot_WhenPark_ThenMustPark() throws Exception {
         MockOwner owner = new MockOwner();
-        ParkingLot parkingLot = new ParkingLot(1, owner);
+        List<INotification> persons = new ArrayList<>();
+        persons.add(owner);
+        ParkingLot parkingLot = new ParkingLot(1, persons);
 
         Object vehicle = new Object();
         parkingLot.park(vehicle);
@@ -24,7 +30,9 @@ class ParkingLotTest {
     @Test
     void givenParkingLotIsFull_WhenPark_ThenMustNotPark() throws Exception {
         MockOwner owner = new MockOwner();
-        ParkingLot parkingLot = new ParkingLot(1, owner);
+        List<INotification> persons = new ArrayList<>();
+        persons.add(owner);
+        ParkingLot parkingLot = new ParkingLot(1, persons);
 
         parkingLot.park(new Object());
 
@@ -36,7 +44,9 @@ class ParkingLotTest {
     @Test
     void givenParkingLotWithSameCars_WhenPark_ThenMustNotPark() throws Exception {
         MockOwner owner = new MockOwner();
-        ParkingLot parkingLot = new ParkingLot(2, owner);
+        List<INotification> persons = new ArrayList<>();
+        persons.add(owner);
+        ParkingLot parkingLot = new ParkingLot(2, persons);
 
         Object object = new Object();
 
@@ -49,7 +59,9 @@ class ParkingLotTest {
     @Test
     void givenNoCarParked_WhenUnPark_ThenTheyShouldNotBeAbleToUnPark() throws NotParkedException {
         MockOwner owner = new MockOwner();
-        ParkingLot parkingLot = new ParkingLot(1, owner);
+        List<INotification> persons = new ArrayList<>();
+        persons.add(owner);
+        ParkingLot parkingLot = new ParkingLot(1, persons);
 
         Object vehicle = new Object();
 
@@ -61,7 +73,9 @@ class ParkingLotTest {
     @Test
     void givenOneCarParked_WhenUnPark_ThenTheyShouldBeAbleToUnPark() throws Exception {
         MockOwner owner = new MockOwner();
-        ParkingLot parkingLot = new ParkingLot(1, owner);
+        List<INotification> persons = new ArrayList<>();
+        persons.add(owner);
+        ParkingLot parkingLot = new ParkingLot(1, persons);
         Object vehicle = new Object();
         parkingLot.park(vehicle);
 
@@ -71,7 +85,9 @@ class ParkingLotTest {
     @Test
     void givenOneCarParkAndUnParkAnotherCar_WhenUnPark_ThenTheyShouldNotBeAbleToUnPark() throws Exception {
         MockOwner owner = new MockOwner();
-        ParkingLot parkingLot = new ParkingLot(1, owner);
+        List<INotification> persons = new ArrayList<>();
+        persons.add(owner);
+        ParkingLot parkingLot = new ParkingLot(1, persons);
         Object vehicleOne = new Object();
         Object vehicleTwo = new Object();
 
@@ -85,7 +101,9 @@ class ParkingLotTest {
     @Test
     void givenParkedTwoVehicle_WhenUnPark_ThenTheyShouldBeUnPark() throws Exception {
         MockOwner owner = new MockOwner();
-        ParkingLot parkingLot = new ParkingLot(2, owner);
+        List<INotification> persons = new ArrayList<>();
+        persons.add(owner);
+        ParkingLot parkingLot = new ParkingLot(2, persons);
         Object vehicleOne = new Object();
         Object vehicleTwo = new Object();
 
@@ -100,7 +118,9 @@ class ParkingLotTest {
     @Test
     void givenParkingLotFull_WhenPark_ThenOwnerGetsMessage() throws VehicleAlreadyParkedException, ParkingLotFullException {
         MockOwner owner = new MockOwner();
-        ParkingLot parkingLot = new ParkingLot(1, owner);
+        List<INotification> persons = new ArrayList<>();
+        persons.add(owner);
+        ParkingLot parkingLot = new ParkingLot(1, persons);
         parkingLot.park(new Object());
         assertEquals(1, owner.parkingFullInform);
     }
@@ -108,8 +128,9 @@ class ParkingLotTest {
     @Test
     void givenParkingLotFull_WhenPark_ThenOwnerGetsMessageOnce() throws VehicleAlreadyParkedException, ParkingLotFullException {
         MockOwner owner = new MockOwner();
-
-        ParkingLot parkingLot = new ParkingLot(1, owner);
+        List<INotification> persons = new ArrayList<>();
+        persons.add(owner);
+        ParkingLot parkingLot = new ParkingLot(1, persons);
         parkingLot.park(new Object());
         assertEquals(1, owner.parkingFullInform);
     }
@@ -117,8 +138,9 @@ class ParkingLotTest {
     @Test
     void givenParkingLotFull_WhenParkAndUnParkAgainPark_ThenOwerGetsMessageTwice() throws VehicleAlreadyParkedException, ParkingLotFullException, NotParkedException {
         MockOwner owner = new MockOwner();
-
-        ParkingLot parkingLot = new ParkingLot(1, owner);
+        List<INotification> persons = new ArrayList<>();
+        persons.add(owner);
+        ParkingLot parkingLot = new ParkingLot(1, persons);
         Object one = new Object();
         parkingLot.park(one);
         parkingLot.unPark(one);
@@ -129,11 +151,52 @@ class ParkingLotTest {
     @Test
     void givenParkingLotFull_WhenUnPark_ThenOwnerGetsMessage() throws VehicleAlreadyParkedException, ParkingLotFullException, NotParkedException {
         MockOwner owner = new MockOwner();
-
-        ParkingLot parkingLot = new ParkingLot(1, owner);
+        List<INotification> persons = new ArrayList<>();
+        persons.add(owner);
+        ParkingLot parkingLot = new ParkingLot(1, persons);
         Object vehicle = new Object();
         parkingLot.park(vehicle);
         parkingLot.unPark(vehicle);
         assertEquals(1, owner.freeSpaceInform);
+    }
+
+    @Test
+    void givenParkingLotFull_WhenPark_ThenOwnerAndSecurityGetsMessage() throws VehicleAlreadyParkedException, ParkingLotFullException, NotParkedException {
+        MockOwner owner = new MockOwner();
+        MockSecurity security = new MockSecurity();
+        List<INotification> persons = new ArrayList<>();
+        persons.add(owner);
+        persons.add(security);
+        ParkingLot parkingLot = new ParkingLot(1, persons);
+
+        Object vehicle = new Object();
+        parkingLot.park(vehicle);
+        parkingLot.unPark(vehicle);
+
+        assertEquals(1, owner.parkingFullInform);
+        assertEquals(1, owner.freeSpaceInform);
+        assertEquals(1, security.parkingFullInform);
+        assertEquals(1, security.freeSpaceInform);
+    }
+
+    @Test
+    void givenParkingLotFull_WhenParkAndUnPark_ThenOwnerAndSecurityGetsMessage() throws VehicleAlreadyParkedException, ParkingLotFullException, NotParkedException {
+        MockOwner owner = new MockOwner();
+        MockSecurity security = new MockSecurity();
+        List<INotification> persons = new ArrayList<>();
+        persons.add(owner);
+        persons.add(security);
+        ParkingLot parkingLot = new ParkingLot(1, persons);
+
+        Object vehicle = new Object();
+        parkingLot.park(vehicle);
+        parkingLot.unPark(vehicle);
+        parkingLot.park(vehicle);
+        parkingLot.unPark(vehicle);
+
+        assertEquals(2, owner.parkingFullInform);
+        assertEquals(2, owner.freeSpaceInform);
+        assertEquals(2, security.parkingFullInform);
+        assertEquals(2, security.freeSpaceInform);
     }
 }

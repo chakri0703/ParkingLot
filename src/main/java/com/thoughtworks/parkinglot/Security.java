@@ -1,6 +1,7 @@
 package com.thoughtworks.parkinglot;
 
-public class Owner implements INotification {
+public class Security implements INotification {
+
     @Override
     public void informParkingLotFull() {
 

@@ -4,25 +4,23 @@ import com.thoughtworks.parkinglot.exception.NotParkedException;
 import com.thoughtworks.parkinglot.exception.ParkingLotFullException;
 import com.thoughtworks.parkinglot.exception.VehicleAlreadyParkedException;
 
-import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ParkingLot {
 
 
-    private Owner owner;
+    private INotification owner;
     private int capacity;
     Set<Object> vehicles = new HashSet<>();
+    List<INotification> persons = new ArrayList<>();
 
-    public ParkingLot(int capacity) {
-        this.capacity = capacity;
-    }
-
-    public ParkingLot(int capacity, Owner owner) {
+    public ParkingLot(int capacity, List<INotification> persons) {
 
         this.capacity = capacity;
-        this.owner = owner;
+        this.persons = persons;
     }
 
 
@@ -36,7 +34,9 @@ public class ParkingLot {
         }
         vehicles.add(object);
         if (vehicles.size() == capacity) {
-            owner.informParkingLotFull();
+            for (int i = 0; i < persons.size(); i++) {
+                persons.get(i).informParkingLotFull();
+            }
         }
     }
 
@@ -55,7 +55,9 @@ public class ParkingLot {
         }
         if (vehicles.size() == capacity) {
             vehicles.remove(vehicle);
-            owner.informFreeSpaceAvailable();
+            for (int i = 0; i < persons.size(); i++) {
+                persons.get(i).informFreeSpaceAvailable();
+            }
         }
         vehicles.remove(vehicle);
         return vehicle;
