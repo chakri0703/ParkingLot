@@ -17,10 +17,9 @@ public class ParkingLot {
     Set<Object> vehicles = new HashSet<>();
     List<INotification> persons = new ArrayList<>();
 
-    public ParkingLot(int capacity, List<INotification> persons) {
+    public ParkingLot(int capacity) {
 
         this.capacity = capacity;
-        this.persons = persons;
     }
 
 
@@ -63,4 +62,8 @@ public class ParkingLot {
         return vehicle;
     }
 
+
+    public void register(INotification person) {
+        persons.add(person);
+    }
 }
