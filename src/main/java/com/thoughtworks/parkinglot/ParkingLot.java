@@ -59,15 +59,18 @@ public class ParkingLot {
         return vehicle;
     }
 
-    int getCapacity() {
-        return this.capacity;
-    }
-
     public void register(Subscriber person) {
         persons.add(person);
     }
 
     public void unRegister(Subscriber person) {
         persons.remove(person);
+    }
+
+    ParkingLot mostCapacity(ParkingLot other) {
+        if (capacity >= other.capacity) {
+            return this;
+        }
+        return other;
     }
 }

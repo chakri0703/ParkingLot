@@ -13,12 +13,8 @@ public class Attendant {
 
     }
 
-    public String park(Object vehicle) throws VehicleAlreadyParkedException, ParkingLotFullException {
-        if (parkingLotOne.getCapacity() > parkingLotTwo.getCapacity()) {
-            parkingLotOne.park(vehicle);
-            return "LotOne";
-        }
-        parkingLotTwo.park(vehicle);
-        return "LotTwo";
+    public void park(Object vehicle) throws VehicleAlreadyParkedException, ParkingLotFullException {
+        ParkingLot highest = parkingLotOne.mostCapacity(parkingLotTwo);
+        highest.park(vehicle);
     }
 }
