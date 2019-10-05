@@ -1,6 +1,6 @@
 package com.thoughtworks.parkinglot;
 
-public class MockSecurity extends Security {
+public class MockSecurity implements Subscriber {
     public int parkingFullInform = 0;
     public int freeSpaceInform = 0;
 

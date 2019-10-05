@@ -11,11 +11,9 @@ import java.util.Set;
 
 public class ParkingLot {
 
-
-    private INotification owner;
     private int capacity;
-    Set<Object> vehicles = new HashSet<>();
-    List<INotification> persons = new ArrayList<>();
+    private Set<Object> vehicles = new HashSet<>();
+    private List<Subscriber> persons = new ArrayList<>();
 
     public ParkingLot(int capacity) {
 
@@ -33,8 +31,8 @@ public class ParkingLot {
         }
         vehicles.add(object);
         if (vehicles.size() == capacity) {
-            for (int i = 0; i < persons.size(); i++) {
-                persons.get(i).informParkingLotFull();
+            for (Subscriber person : persons) {
+                person.informParkingLotFull();
             }
         }
     }
@@ -54,8 +52,8 @@ public class ParkingLot {
         }
         if (vehicles.size() == capacity) {
             vehicles.remove(vehicle);
-            for (int i = 0; i < persons.size(); i++) {
-                persons.get(i).informFreeSpaceAvailable();
+            for (Subscriber person : persons) {
+                person.informFreeSpaceAvailable();
             }
         }
         vehicles.remove(vehicle);
@@ -63,7 +61,11 @@ public class ParkingLot {
     }
 
 
-    public void register(INotification person) {
+    public void register(Subscriber person) {
         persons.add(person);
+    }
+
+    public void unRegister(Subscriber person) {
+        persons.remove(person);
     }
 }

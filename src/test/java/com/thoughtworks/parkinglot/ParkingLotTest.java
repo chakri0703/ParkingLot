@@ -212,4 +212,25 @@ class ParkingLotTest {
         assertEquals(1, securityTwo.parkingFullInform);
     }
 
+    @Test
+    void givenParkingLotRemovingOnePerson_WhenParkAndUnPark_ThenRemovedPersonShouldNotGetMessages() throws Exception {
+        MockSecurity security = new MockSecurity();
+        MockOwner owner = new MockOwner();
+        Object vehicle = new Object();
+        ParkingLot parkingLot = new ParkingLot(1);
+        parkingLot.register(owner);
+        parkingLot.register(security);
+        parkingLot.park(vehicle);
+        parkingLot.unPark(vehicle);
+
+        parkingLot.unRegister(security);
+
+        parkingLot.park(vehicle);
+        parkingLot.unPark(vehicle);
+
+        assertEquals(2, owner.parkingFullInform);
+        assertEquals(2, owner.freeSpaceInform);
+        assertEquals(1, security.parkingFullInform);
+        assertEquals(1, security.freeSpaceInform);
+    }
 }

@@ -1,6 +1,6 @@
 package com.thoughtworks.parkinglot;
 
-public interface INotification {
+public interface Subscriber {
     void informParkingLotFull();
 
     void informFreeSpaceAvailable();
