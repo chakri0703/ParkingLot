@@ -16,7 +16,6 @@ public class ParkingLot {
     private List<Subscriber> persons = new ArrayList<>();
 
     public ParkingLot(int capacity) {
-
         this.capacity = capacity;
     }
 
@@ -60,6 +59,9 @@ public class ParkingLot {
         return vehicle;
     }
 
+    int getCapacity() {
+        return this.capacity;
+    }
 
     public void register(Subscriber person) {
         persons.add(person);

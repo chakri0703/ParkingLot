@@ -13,8 +13,12 @@ public class Attendant {
 
     }
 
-    public void park(Object vehicle) throws VehicleAlreadyParkedException, ParkingLotFullException {
-        parkingLotOne.park(vehicle);
+    public String park(Object vehicle) throws VehicleAlreadyParkedException, ParkingLotFullException {
+        if (parkingLotOne.getCapacity() > parkingLotTwo.getCapacity()) {
+            parkingLotOne.park(vehicle);
+            return "LotOne";
+        }
         parkingLotTwo.park(vehicle);
+        return "LotTwo";
     }
 }
