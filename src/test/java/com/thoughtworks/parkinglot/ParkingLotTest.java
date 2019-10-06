@@ -251,25 +251,12 @@ class ParkingLotTest {
         assertEquals(1, parkingLotOne.compareTo(parkingLotTwo));
     }
 
-//    @Test
-//    void givenParkingLot_WhenCheckSapce_ThenShouldAbleToCheck() throws VehicleAlreadyParkedException, ParkingLotFullException {
-//        ParkingLot parkingLot = new ParkingLot(3);
-//        Object vehicle = new Object();
-//
-//        parkingLot.park(vehicle);
-//        assertTrue(parkingLot.spaceAvailable());
-//    }
-//
-//    @Test
-//    void givenParkingLotFull_WhenCheckSpace_TheyShouldBEAbleToCheck() throws VehicleAlreadyParkedException, ParkingLotFullException {
-//        ParkingLot parkingLot = new ParkingLot(2);
-//
-//        Object vehicleOne = new Object();
-//        Object vehicleTwo = new Object();
-//
-//        parkingLot.park(vehicleOne);
-//        parkingLot.park(vehicleTwo);
-//
-//        assertFalse(parkingLot.spaceAvailable());
-//    }
+    @Test
+    void givenTwoParkingLot_WhenHasMoreFreeSpace_ThenShouldReturnTrue() throws VehicleAlreadyParkedException, ParkingLotFullException {
+        ParkingLot parkingLotOne = new ParkingLot(2);
+        ParkingLot parkingLotTwo = new ParkingLot(2);
+        Object vehicle = new Object();
+        parkingLotOne.park(vehicle);
+        assertTrue(parkingLotTwo.hasMoreSpace(parkingLotOne));
+    }
 }

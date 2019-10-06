@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AttendantTest {
+class MostCapacityAttendantTest {
 
     @Test
     void givenParkingLot_WhenPark_ThenAttendantShouldBeAbleToPark() {
@@ -19,7 +19,7 @@ class AttendantTest {
         List<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(parkingLotOne);
         parkingLots.add(parkingLotTwo);
-        Attendant attendant = new Attendant(parkingLots);
+        MostCapacityAttendant attendant = new MostCapacityAttendant(parkingLots);
         Object vehicle = new Object();
         assertDoesNotThrow(() -> attendant.park(vehicle));
     }
@@ -32,7 +32,7 @@ class AttendantTest {
         parkingLots.add(parkingLotOne);
         parkingLots.add(parkingLotTwo);
         Object vehicle = new Object();
-        Attendant attendant = new Attendant(parkingLots);
+        MostCapacityAttendant attendant = new MostCapacityAttendant(parkingLots);
         attendant.park(vehicle);
         assertEquals(vehicle, parkingLotTwo.unPark(vehicle));
         assertThrows(NotParkedException.class, () -> parkingLotOne.unPark(vehicle));
@@ -46,7 +46,7 @@ class AttendantTest {
         parkingLots.add(parkingLotOne);
         parkingLots.add(parkingLotTwo);
         Object vehicle = new Object();
-        Attendant attendant = new Attendant(parkingLots);
+        MostCapacityAttendant attendant = new MostCapacityAttendant(parkingLots);
         attendant.park(vehicle);
         assertEquals(vehicle, parkingLotOne.unPark(vehicle));
         assertThrows(NotParkedException.class, () -> parkingLotTwo.unPark(vehicle));
@@ -63,7 +63,7 @@ class AttendantTest {
         parkingLots.add(parkingLotTwo);
         parkingLots.add(parkingLotThree);
 
-        Attendant attendant = new Attendant(parkingLots);
+        MostCapacityAttendant attendant = new MostCapacityAttendant(parkingLots);
 
         Object vehicleOne = new Object();
         Object vehicleTwo = new Object();
@@ -90,7 +90,7 @@ class AttendantTest {
         ParkingLot parkingLotThree = new ParkingLot(1);
 
         List<ParkingLot> parkingLots = Arrays.asList(parkingLotOne, parkingLotThree, parkingLotTwo);
-        Attendant attendant = new Attendant(parkingLots);
+        MostCapacityAttendant attendant = new MostCapacityAttendant(parkingLots);
 
         Object vehicleOne = new Object();
         Object vehicleTwo = new Object();
@@ -119,7 +119,7 @@ class AttendantTest {
         parkingLots.add(parkingLotTwo);
         parkingLots.add(parkingLotThree);
 
-        Attendant attendant = new Attendant(parkingLots);
+        MostCapacityAttendant attendant = new MostCapacityAttendant(parkingLots);
         Object vehicleOne = new Object();
         Object vehicleTwo = new Object();
         Object vehicleThree = new Object();
