@@ -22,12 +22,9 @@ public class MostCapacityAttendant extends Attendant {
         for (ParkingLot parkingLot : parkingLots) {
             try {
                 parkingLot.park(vehicle);
-                wasAbleToPark = true;
+                return;
             } catch (ParkingLotFullException e) {
                 e.printStackTrace();
-            }
-            if (wasAbleToPark) {
-                return;
             }
         }
         throw new AllParkingLotsAreFullException("All parkingLots full");
