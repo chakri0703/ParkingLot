@@ -3,18 +3,18 @@ package com.thoughtworks.parkinglot;
 import com.thoughtworks.parkinglot.exception.ParkingLotFullException;
 import com.thoughtworks.parkinglot.exception.VehicleAlreadyParkedException;
 
+import java.util.Collections;
+import java.util.List;
+
 public class Attendant {
-    private final ParkingLot parkingLotOne;
-    private final ParkingLot parkingLotTwo;
 
-    public Attendant(ParkingLot parkingLotOne, ParkingLot parkingLotTwo) {
-        this.parkingLotOne = parkingLotOne;
-        this.parkingLotTwo = parkingLotTwo;
+    private List<ParkingLot> parkingLots;
 
+    public Attendant(List<ParkingLot> parkingLots) {
+        this.parkingLots = parkingLots;
     }
 
     public void park(Object vehicle) throws VehicleAlreadyParkedException, ParkingLotFullException {
-        ParkingLot highest = parkingLotOne.mostCapacity(parkingLotTwo);
-        highest.park(vehicle);
+        Collections.max(parkingLots).park(vehicle);
     }
 }

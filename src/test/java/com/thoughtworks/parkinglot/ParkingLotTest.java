@@ -6,6 +6,7 @@ import com.thoughtworks.parkinglot.exception.VehicleAlreadyParkedException;
 import org.junit.jupiter.api.Test;
 import org.mockito.internal.configuration.injection.filter.OngoingInjecter;
 
+import javax.annotation.processing.SupportedAnnotationTypes;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -232,5 +233,26 @@ class ParkingLotTest {
         assertEquals(2, owner.freeSpaceInform);
         assertEquals(1, security.parkingFullInform);
         assertEquals(1, security.freeSpaceInform);
+    }
+
+    @Test
+    void givenTwoParkingLots_WhenCompare_ThenShouldBeAbleToCompare() {
+        ParkingLot parkingLotOne = new ParkingLot(1);
+        ParkingLot parkingLotTwo = new ParkingLot(2);
+        assertEquals(-1, parkingLotOne.compareTo(parkingLotTwo));
+    }
+
+    @Test
+    void givenTwoParkingLotsWithEqualCapacity_WhenCompare_ThenShouldBeAbleToCompare() {
+        ParkingLot parkingLotOne = new ParkingLot(2);
+        ParkingLot parkingLotTwo = new ParkingLot(2);
+        assertEquals(0, parkingLotOne.compareTo(parkingLotTwo));
+    }
+
+    @Test
+    void givenTwoParkingLotsWithCapacityMore_WhenCompare_ThenShouldBeAbleToCompare() {
+        ParkingLot parkingLotOne = new ParkingLot(3);
+        ParkingLot parkingLotTwo = new ParkingLot(2);
+        assertEquals(1, parkingLotOne.compareTo(parkingLotTwo));
     }
 }

@@ -4,12 +4,9 @@ import com.thoughtworks.parkinglot.exception.NotParkedException;
 import com.thoughtworks.parkinglot.exception.ParkingLotFullException;
 import com.thoughtworks.parkinglot.exception.VehicleAlreadyParkedException;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
-public class ParkingLot {
+public class ParkingLot implements Comparable<ParkingLot> {
 
     private int capacity;
     private Set<Object> vehicles = new HashSet<>();
@@ -67,10 +64,8 @@ public class ParkingLot {
         persons.remove(person);
     }
 
-    ParkingLot mostCapacity(ParkingLot other) {
-        if (capacity >= other.capacity) {
-            return this;
-        }
-        return other;
+    @Override
+    public int compareTo(ParkingLot o) {
+        return (capacity - o.capacity);
     }
 }
