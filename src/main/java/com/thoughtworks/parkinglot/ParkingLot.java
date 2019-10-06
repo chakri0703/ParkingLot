@@ -68,4 +68,9 @@ public class ParkingLot implements Comparable<ParkingLot> {
     public int compareTo(ParkingLot o) {
         return (capacity - o.capacity);
     }
+
+    // TODO
+    private boolean spaceAvailable() {
+        return vehicles.size() < capacity;
+    }
 }

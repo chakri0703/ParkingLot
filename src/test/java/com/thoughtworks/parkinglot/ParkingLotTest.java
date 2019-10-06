@@ -4,11 +4,6 @@ import com.thoughtworks.parkinglot.exception.NotParkedException;
 import com.thoughtworks.parkinglot.exception.ParkingLotFullException;
 import com.thoughtworks.parkinglot.exception.VehicleAlreadyParkedException;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.configuration.injection.filter.OngoingInjecter;
-
-import javax.annotation.processing.SupportedAnnotationTypes;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -255,4 +250,26 @@ class ParkingLotTest {
         ParkingLot parkingLotTwo = new ParkingLot(2);
         assertEquals(1, parkingLotOne.compareTo(parkingLotTwo));
     }
+
+//    @Test
+//    void givenParkingLot_WhenCheckSapce_ThenShouldAbleToCheck() throws VehicleAlreadyParkedException, ParkingLotFullException {
+//        ParkingLot parkingLot = new ParkingLot(3);
+//        Object vehicle = new Object();
+//
+//        parkingLot.park(vehicle);
+//        assertTrue(parkingLot.spaceAvailable());
+//    }
+//
+//    @Test
+//    void givenParkingLotFull_WhenCheckSpace_TheyShouldBEAbleToCheck() throws VehicleAlreadyParkedException, ParkingLotFullException {
+//        ParkingLot parkingLot = new ParkingLot(2);
+//
+//        Object vehicleOne = new Object();
+//        Object vehicleTwo = new Object();
+//
+//        parkingLot.park(vehicleOne);
+//        parkingLot.park(vehicleTwo);
+//
+//        assertFalse(parkingLot.spaceAvailable());
+//    }
 }
