@@ -1,13 +1,16 @@
 package com.thoughtworks.parkinglot;
 
+import com.thoughtworks.parkinglot.exception.ParkingLotFullException;
+import com.thoughtworks.parkinglot.exception.VehicleAlreadyParkedException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class MostFreeSpacePakingStrategyTest {
+class MostFreeSpaceParkingStrategyTest {
 
     @Test
     void givenTwoParkingLots_WhenPark_ThenAbleToParkInMostFreeSpaceLot() throws Exception {
@@ -57,6 +60,7 @@ class MostFreeSpacePakingStrategyTest {
         attendant.park(vehicle);
         assertEquals(vehicle, parkingLotThree.unPark(vehicle));
     }
+
     @Test
     void givenThreeParkingLot_WhenPark_ThenAbleParkInMostFreeSpace() throws Exception {
         ParkingLot parkingLotOne = new ParkingLot(2);
@@ -68,9 +72,29 @@ class MostFreeSpacePakingStrategyTest {
         Object vehicle = new Object();
 
         MostFreeSpaceParkingStrategy mostFreeSpaceAttendant = new MostFreeSpaceParkingStrategy(parkingLots);
-
+            parkingLotOne.park(vehicle);
         Attendant attendant = new Attendant(mostFreeSpaceAttendant);
         attendant.park(vehicle);
-        assertEquals(vehicle, parkingLotOne.unPark(vehicle));
+        assertEquals(vehicle, parkingLotTwo.unPark(vehicle));
+    }
+
+    @Test
+    void givenTwoParkingLotsFull_WhenPark_ThenShouldThrowException() throws VehicleAlreadyParkedException, ParkingLotFullException {
+        ParkingLot parkingLotOne = new ParkingLot(1);
+        ParkingLot parkingLotTwo = new ParkingLot(1);
+
+        List<ParkingLot> parkingLots=Arrays.asList(parkingLotOne,parkingLotTwo);
+        Object vehicleOne = new Object();
+        Object vehicleTwo = new Object();
+
+        parkingLotOne.park(vehicleOne);
+        parkingLotTwo.park(vehicleTwo);
+
+        MostFreeSpaceParkingStrategy mostFreeSpaceParkingStrategy=new MostFreeSpaceParkingStrategy(parkingLots);
+
+        Attendant attendant=new Attendant(mostFreeSpaceParkingStrategy);
+
+        assertThrows(ParkingLotFullException.class,()->
+            attendant.park(vehicleOne));
     }
 }

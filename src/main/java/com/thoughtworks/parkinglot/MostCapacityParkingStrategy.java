@@ -26,7 +26,6 @@ public class MostCapacityParkingStrategy implements ParkingStrategy {
                 e.printStackTrace();
             }
         }
-        throw new AllParkingLotsAreFullException("All parkingLots full");
+        throw new AllParkingLotsAreFullException();
     }
-
 }

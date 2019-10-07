@@ -1,9 +1,13 @@
 package com.thoughtworks.parkinglot;
 
+import com.thoughtworks.parkinglot.exception.AllParkingLotsAreFullException;
 import com.thoughtworks.parkinglot.exception.ParkingLotFullException;
 import com.thoughtworks.parkinglot.exception.VehicleAlreadyParkedException;
 
+import java.util.Collections;
 import java.util.List;
+
+import static java.util.Collections.*;
 
 public class MostFreeSpaceParkingStrategy implements ParkingStrategy {
 
@@ -14,13 +18,8 @@ public class MostFreeSpaceParkingStrategy implements ParkingStrategy {
     }
 
     @Override
-    public void park(Object vehicle) throws VehicleAlreadyParkedException, ParkingLotFullException {
-        ParkingLot mostFreeSpaceLot = parkingLots.get(0);
-        for (int i = 1; i < parkingLots.size(); i++) {
-            if (!mostFreeSpaceLot.hasMoreSpace(parkingLots.get(i))) {
-                mostFreeSpaceLot = parkingLots.get(i);
-            }
-        }
-        mostFreeSpaceLot.park(vehicle);
+    public void park(Object vehicle) throws VehicleAlreadyParkedException, ParkingLotFullException, AllParkingLotsAreFullException {
+        parkingLots.sort(new FreeSpaceComparator());
+        parkingLots.get(parkingLots.size() - 1).park(vehicle);
     }
 }

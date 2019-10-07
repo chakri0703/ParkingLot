@@ -5,13 +5,13 @@ import com.thoughtworks.parkinglot.exception.ParkingLotFullException;
 import com.thoughtworks.parkinglot.exception.VehicleAlreadyParkedException;
 
 public class Attendant {
-    private ParkingStrategy behaviour;
+    private ParkingStrategy parkingStrategy;
 
     public Attendant(ParkingStrategy parkingStrategy) {
-        this.behaviour = parkingStrategy;
+        this.parkingStrategy = parkingStrategy;
     }
 
     public void park(Object vehicle) throws VehicleAlreadyParkedException, AllParkingLotsAreFullException, ParkingLotFullException {
-        behaviour.park(vehicle);
+        parkingStrategy.park(vehicle);
     }
 }

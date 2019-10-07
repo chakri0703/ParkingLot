@@ -6,7 +6,7 @@ import com.thoughtworks.parkinglot.exception.VehicleAlreadyParkedException;
 
 import java.util.*;
 
-public class ParkingLot implements Comparable<ParkingLot> {
+public class ParkingLot implements Comparable<ParkingLot>{
 
     private int capacity;
     private Set<Object> vehicles = new HashSet<>();
@@ -69,7 +69,11 @@ public class ParkingLot implements Comparable<ParkingLot> {
         return (capacity - o.capacity);
     }
 
-    public boolean hasMoreSpace(ParkingLot parkingLot) {
-        return this.capacity - vehicles.size() >= parkingLot.capacity - parkingLot.vehicles.size();
+    public int getCapacity(){
+        return this.capacity;
+    }
+
+    public int getVehicleSize() {
+        return vehicles.size();
     }
 }

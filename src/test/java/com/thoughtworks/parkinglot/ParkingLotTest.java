@@ -251,12 +251,12 @@ class ParkingLotTest {
         assertEquals(1, parkingLotOne.compareTo(parkingLotTwo));
     }
 
-    @Test
-    void givenTwoParkingLot_WhenHasMoreFreeSpace_ThenShouldReturnTrue() throws VehicleAlreadyParkedException, ParkingLotFullException {
-        ParkingLot parkingLotOne = new ParkingLot(2);
-        ParkingLot parkingLotTwo = new ParkingLot(2);
-        Object vehicle = new Object();
-        parkingLotOne.park(vehicle);
-        assertTrue(parkingLotTwo.hasMoreSpace(parkingLotOne));
-    }
+//    @Test
+//    void givenTwoParkingLot_WhenHasMoreFreeSpace_ThenShouldReturnTrue() throws VehicleAlreadyParkedException, ParkingLotFullException {
+//        ParkingLot parkingLotOne = new ParkingLot(2);
+//        ParkingLot parkingLotTwo = new ParkingLot(2);
+//        Object vehicle = new Object();
+//        parkingLotOne.park(vehicle);
+//        assertTrue(parkingLotTwo.hasMoreSpace(parkingLotOne));
+//    }
 }
