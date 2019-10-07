@@ -7,18 +7,17 @@ import com.thoughtworks.parkinglot.exception.VehicleAlreadyParkedException;
 import java.util.Collections;
 import java.util.List;
 
-public class MostCapacityAttendant extends Attendant {
+public class MostCapacityParkingStrategy implements ParkingStrategy {
 
     private List<ParkingLot> parkingLots;
 
-    public MostCapacityAttendant(List<ParkingLot> parkingLots) {
+    public MostCapacityParkingStrategy(List<ParkingLot> parkingLots) {
         this.parkingLots = parkingLots;
     }
 
     @Override
     public void park(Object vehicle) throws VehicleAlreadyParkedException, AllParkingLotsAreFullException {
         parkingLots.sort(Collections.reverseOrder());
-        boolean wasAbleToPark = false;
         for (ParkingLot parkingLot : parkingLots) {
             try {
                 parkingLot.park(vehicle);
@@ -29,4 +28,5 @@ public class MostCapacityAttendant extends Attendant {
         }
         throw new AllParkingLotsAreFullException("All parkingLots full");
     }
+
 }

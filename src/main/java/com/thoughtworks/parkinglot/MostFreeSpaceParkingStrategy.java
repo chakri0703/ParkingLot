@@ -5,11 +5,11 @@ import com.thoughtworks.parkinglot.exception.VehicleAlreadyParkedException;
 
 import java.util.List;
 
-public class MostFreeSpaceAttendant extends Attendant {
+public class MostFreeSpaceParkingStrategy implements ParkingStrategy {
 
     private List<ParkingLot> parkingLots;
 
-    public MostFreeSpaceAttendant(List<ParkingLot> parkingLots) {
+    public MostFreeSpaceParkingStrategy(List<ParkingLot> parkingLots) {
         this.parkingLots = parkingLots;
     }
 
@@ -20,7 +20,7 @@ public class MostFreeSpaceAttendant extends Attendant {
             if (!mostFreeSpaceLot.hasMoreSpace(parkingLots.get(i))) {
                 mostFreeSpaceLot = parkingLots.get(i);
             }
-            mostFreeSpaceLot.park(vehicle);
         }
+        mostFreeSpaceLot.park(vehicle);
     }
 }
