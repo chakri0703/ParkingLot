@@ -1,5 +1,6 @@
-package com.thoughtworks.parkinglot;
+package com.thoughtworks.parkinglot.strategy;
 
+import com.thoughtworks.parkinglot.ParkingLot;
 import com.thoughtworks.parkinglot.exception.AllParkingLotsAreFullException;
 import com.thoughtworks.parkinglot.exception.ParkingLotFullException;
 import com.thoughtworks.parkinglot.exception.VehicleAlreadyParkedException;

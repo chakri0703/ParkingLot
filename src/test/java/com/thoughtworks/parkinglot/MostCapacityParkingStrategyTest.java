@@ -1,7 +1,9 @@
 package com.thoughtworks.parkinglot;
 
+import com.thoughtworks.parkinglot.attendant.Attendant;
 import com.thoughtworks.parkinglot.exception.AllParkingLotsAreFullException;
 import com.thoughtworks.parkinglot.exception.NotParkedException;
+import com.thoughtworks.parkinglot.strategy.MostCapacityParkingStrategy;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

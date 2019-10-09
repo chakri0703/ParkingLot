@@ -1,7 +1,10 @@
 package com.thoughtworks.parkinglot;
 
+import com.thoughtworks.parkinglot.attendant.Attendant;
+import com.thoughtworks.parkinglot.exception.AllParkingLotsAreFullException;
 import com.thoughtworks.parkinglot.exception.ParkingLotFullException;
 import com.thoughtworks.parkinglot.exception.VehicleAlreadyParkedException;
+import com.thoughtworks.parkinglot.strategy.MostFreeSpaceParkingStrategy;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -94,7 +97,7 @@ class MostFreeSpaceParkingStrategyTest {
 
         Attendant attendant=new Attendant(mostFreeSpaceParkingStrategy);
 
-        assertThrows(ParkingLotFullException.class,()->
+        assertThrows(AllParkingLotsAreFullException.class,()->
             attendant.park(vehicleOne));
     }
 }
