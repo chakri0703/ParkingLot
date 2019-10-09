@@ -27,9 +27,7 @@ public class ParkingLot implements Comparable<ParkingLot> {
         }
         vehicles.add(object);
         if (isParkingLotFull()) {
-            for (Subscriber person : persons) {
-                person.informParkingLotFull();
-            }
+            informLotFull();
         }
     }
 
@@ -42,15 +40,13 @@ public class ParkingLot implements Comparable<ParkingLot> {
     }
 
     public Object unPark(Object vehicle) throws NotParkedException {
-        if (!isParked(vehicle) || vehicles.isEmpty()) {
+        if (checkVehiclePresence(vehicle)) {
             throw new NotParkedException("Vehicle Not parked");
 
         }
         if (isParkingLotFull()) {
             vehicles.remove(vehicle);
-            for (Subscriber person : persons) {
-                person.informFreeSpaceAvailable();
-            }
+            informLotAvailable();
         }
         vehicles.remove(vehicle);
         return vehicle;
@@ -64,6 +60,21 @@ public class ParkingLot implements Comparable<ParkingLot> {
         persons.remove(person);
     }
 
+
+    private boolean checkVehiclePresence(Object vehicle){
+        return !isParked(vehicle) || vehicles.isEmpty();
+    }
+
+    private void informLotFull(){
+        for (Subscriber person : persons) {
+            person.informParkingLotFull();
+        }
+    }
+    private void informLotAvailable(){
+        for (Subscriber person : persons) {
+            person.informFreeSpaceAvailable();
+        }
+    }
     @Override
     public int compareTo(ParkingLot o) {
         return (capacity - o.capacity);
